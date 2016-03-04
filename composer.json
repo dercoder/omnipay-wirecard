@@ -12,7 +12,7 @@
         "purchase"
     ],
     "homepage": "",
-    "license": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Tamas Erdelyi",

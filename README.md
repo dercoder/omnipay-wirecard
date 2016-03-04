@@ -1,8 +1,7 @@
 # omnipay-wirecard
-Wirecard gateway for Omnipay (http://omnipay.thephpleague.com) payment processing library.
+Wirecard gateway for [Omnipay](https://github.com/thephpleague/omnipay) payment processing library.
 
-This library only supports Wirecard Checkout Page payment yet. You can read more about the Checkout Page solution here:
-https://www.wirecard.at/en/solutions/products/checkout-page/
+> This library **only supports** Wirecard Checkout Page payment yet. You can [read more about](https://www.wirecard.at/en/solutions/products/checkout-page/) the Checkout Page solution here.
 
 ## Install
 
@@ -22,7 +21,14 @@ or add it to your composer.json file:
 
 It will also install the Omnipay package if it's not available in the autoload.
 
-## Using
+## Basic usage
+
+The following gateways are provided by this package:
+
+* Wirecard_Checkout (Wirecard Checkout Page)
+
+For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
+repository.
 
 Firstly create the gateway:
 
@@ -32,7 +38,7 @@ $gateway->setCustomerId('D200001'); // this is a valid demo customer id
 $gateway->setSecret('B8AKTPWBRMNBV455FG6M2DANE99WU2'); // this is also valid for developing
 ```
 
-After that prepare the required parameters.
+Secondly prepare the required parameters:
 
 ```php
 $parameters = [
@@ -40,16 +46,16 @@ $parameters = [
     'shopId' => '1234', // optional
     'currency' => 'EUR',
     'description' => 'Awesome Product',
-    'language' => 'en',
-    'successUrl' => 'your-website.com/response?type=success',
-    'failureUrl' => 'your-website.com/response?type=failure',
-    'cancelUrl' => your-website.com/response?type=cancel,
-    'serviceUrl' => your-website.com/response?type=service,
-    'amount' => '100.00'
+    'language' => 'EN',
+    'successUrl' => 'http://your-website.com/response?type=success',
+    'failureUrl' => 'http://your-website.com/response?type=failure',
+    'cancelUrl' => http://your-website.com/response?type=cancel,
+    'serviceUrl' => http://your-website.com/response?type=service,
+    'amount' => '100.00' // must be contains decimals
 ];
 ```
 
-If any required parameter is missing you will get an InvalidRequestException:
+If any required parameter is missing you will get an InvalidRequestException when you create the request:
 
 ```php
 $request = $gateway->purchase($parameters);
@@ -61,7 +67,7 @@ Send the request:
 $response = $request->send();
 ```
 
-Handle the response:
+Lastly handle the response:
 
 ```php
 if ($response->isRedirect()) {
@@ -71,7 +77,7 @@ if ($response->isRedirect()) {
 }
 ```
 
-Now you have to handle return urls from the Checkout page. On your response page use:
+If you would like to handle return urls from the Checkout page use this on your response page:
 
 ```php
 $gateway = Omnipay\Omnipay::create('Wirecard_Checkout');
@@ -81,7 +87,7 @@ $request = $gateway->completePurchase();
 $response = $request->send();
 
 if ($response->isSuccessful()) {
-    echo 'Succesful payment!';    
+    echo 'Succesful payment!';
 } else if ($response->isCanceled()) {
     echo 'Payment has been cancelled.';
 } else if ($response->isPending()) {
@@ -91,7 +97,7 @@ if ($response->isSuccessful()) {
 }
 ```
 
-The `getMessage()` and `getData()` methods are already available in the response object for further actions.
+The `getMessage()` and `getData()` methods are available in the response object for further actions.
 
 ## List of available payment types
 
@@ -99,7 +105,7 @@ Payment type is highly depended on your contract with Wirecard, but these are th
 
 | Type | Description |
 |---|---|
-| BANCONTACT_MISTERCASH | Bancontact/Mister Cash | 
+| BANCONTACT_MISTERCASH | Bancontact/Mister Cash |
 | C2P | CLICK2PAY |
 | CCARD | Credit Card |
 | CCARD-MOTO | Credit Card Mail Order, Telephone Order |
