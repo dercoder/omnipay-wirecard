@@ -1,18 +1,18 @@
 # omnipay-wirecard
-This a Wirecard gateway for Omnipay (http://omnipay.thephpleague.com) payment processing library.
+Wirecard gateway for Omnipay (http://omnipay.thephpleague.com) payment processing library.
 
-This library only supports Wirecard Checkout Page payment yet. You can read about the Checkout Page solution here:
+This library only supports Wirecard Checkout Page payment yet. You can read more about the Checkout Page solution here:
 https://www.wirecard.at/en/solutions/products/checkout-page/
 
 ## Using
 
-First create the gateway:
+Firstly create the gateway:
 
         $gateway = Omnipay\Omnipay::create('Wirecard_Checkout');
         $gateway->setCustomerId('D200001'); // this is a valid demo customer id
         $gateway->setSecret('B8AKTPWBRMNBV455FG6M2DANE99WU2'); // this is also valid for developing
 
-Then prepare parameters.
+After that prepare the required parameters.
 
         $parameters = [
             'paymentType' => 'CCARD',
@@ -27,7 +27,7 @@ Then prepare parameters.
             'amount' => '100.00'
         ];
 
-If any required parameter is missing you will get a validation Exception:
+If any required parameter is missing you will get an InvalidRequestException:
 
         $request = $gateway->purchase($parameters);
 
@@ -38,7 +38,7 @@ Send the request:
 Handle the response:
 
         if ($response->isRedirect()) {
-            $response->redirect(); // redirect browser to Checkout Page
+            $response->redirect(); // redirect the browser to the Wirecard Checkout Page
         } else {
             echo 'Error: '.$response->getMessage();
         }
