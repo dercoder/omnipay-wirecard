@@ -4,6 +4,24 @@ Wirecard gateway for Omnipay (http://omnipay.thephpleague.com) payment processin
 This library only supports Wirecard Checkout Page payment yet. You can read more about the Checkout Page solution here:
 https://www.wirecard.at/en/solutions/products/checkout-page/
 
+## Install
+
+Gateway is installed via Composer:
+
+```bash
+composer require terdelyi/omnipay-wirecard
+```
+
+or add it to your composer.json file:
+
+```json
+"require": {
+    "terdelyi/omnipay-wirecard": "dev-master"
+}
+```
+
+It will also install the Omnipay package if it's not available in the autoload.
+
 ## Using
 
 Firstly create the gateway:
