@@ -86,25 +86,14 @@ class CheckoutPurchaseRequest extends AbstractRequest
         return $this->setParameter('serviceUrl', $value);
     }
 
-
-    public function getConfirmUrl()
+    public function getCancelUrl()
     {
-        return $this->getParameter('serviceUrl');
+        return $this->getParameter('cancelUrl');
     }
 
-    public function setServiceUrl($value)
+    public function setCancelUrl($value)
     {
-        return $this->setParameter('serviceUrl', $value);
-    }
-
-    public function getImageUrl()
-    {
-        return $this->getParameter('imageUrl');
-    }
-
-    public function setImageUrl($value)
-    {
-        return $this->setParameter('imageUrl', $value);
+        return $this->setParameter('cancelUrl', $value);
     }
 
     public function getConfirmUrl()
@@ -117,14 +106,14 @@ class CheckoutPurchaseRequest extends AbstractRequest
         return $this->setParameter('confirmUrl', $value);
     }
 
-    public function getCancelUrl()
+    public function getImageUrl()
     {
-        return $this->getParameter('cancelUrl');
+        return $this->getParameter('imageUrl');
     }
 
-    public function setCancelUrl($value)
+    public function setImageUrl($value)
     {
-        return $this->setParameter('cancelUrl', $value);
+        return $this->setParameter('imageUrl', $value);
     }
 
     public function getEndpoint()
