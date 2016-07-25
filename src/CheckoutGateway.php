@@ -14,6 +14,16 @@ class CheckoutGateway extends AbstractGateway
         return 'Wirecard Checkout';
     }
 
+    public function getDefaultParameters()
+    {
+        return array(
+            'customerID' => '',
+            'secret' => '',
+            'testMode' => false,
+            'paymentType' => array('CCARD'),
+        );
+    }
+
     public function getSecret()
     {
         return $this->getParameter('SECRET');
@@ -32,14 +42,6 @@ class CheckoutGateway extends AbstractGateway
     public function setCustomerId($value)
     {
         return $this->setParameter('CUSTOMERID', $value);
-    }
-
-    public function getDefaultParameters()
-    {
-        return array(
-            'customerID' => '',
-            'secret' => '',
-        );
     }
 
     public function purchase(array $parameters = array())

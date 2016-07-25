@@ -86,6 +86,37 @@ class CheckoutPurchaseRequest extends AbstractRequest
         return $this->setParameter('serviceUrl', $value);
     }
 
+
+    public function getConfirmUrl()
+    {
+        return $this->getParameter('serviceUrl');
+    }
+
+    public function setServiceUrl($value)
+    {
+        return $this->setParameter('serviceUrl', $value);
+    }
+
+    public function getImageUrl()
+    {
+        return $this->getParameter('imageUrl');
+    }
+
+    public function setImageUrl($value)
+    {
+        return $this->setParameter('imageUrl', $value);
+    }
+
+    public function getConfirmUrl()
+    {
+        return $this->getParameter('confirmUrl');
+    }
+
+    public function setConfirmUrl($value)
+    {
+        return $this->setParameter('confirmUrl', $value);
+    }
+
     public function getCancelUrl()
     {
         return $this->getParameter('cancelUrl');
@@ -103,7 +134,7 @@ class CheckoutPurchaseRequest extends AbstractRequest
 
     public function getData()
     {
-        $this->validate('customerId', 'paymentType', 'currency', 'description', 'amount', 'successUrl', 'failureUrl', 'cancelUrl', 'serviceUrl');
+        $this->validate('customerId', 'amount', 'successUrl', 'cancelUrl');
 
         $data['customerId'] = $this->getCustomerId();
         $data['shopId'] = $this->getShopId();
@@ -115,7 +146,9 @@ class CheckoutPurchaseRequest extends AbstractRequest
         $data['successUrl'] = $this->getSuccessUrl();
         $data['failureUrl'] = $this->getFailureUrl();
         $data['cancelUrl'] = $this->getCancelUrl();
+        $data['confirmUrl'] = $this->getConfirmUrl();
         $data['serviceUrl'] = $this->getServiceUrl();
+        $data['imageUrl'] = $this->getImageUrl();
         $data['language'] = $this->getLanguage();
         $data['requestFingerprintOrder'] = Helper::getRequestFingerprintOrder($data);
         $data['requestFingerprint'] = Helper::getRequestFingerprint($data, $this->getSecret());
