@@ -1,36 +1,43 @@
 {
-    "name": "terdelyi/omnipay-wirecard",
-    "type": "library",
-    "description": "Wirecard gateway for Omnipay payment processing library",
-    "keywords": [
-        "gateway",
-        "merchant",
-        "omnipay",
-        "pay",
-        "payment",
-        "wirecard",
-        "purchase"
-    ],
-    "homepage": "",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Tamas Erdelyi",
-            "email": "terdelyi@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": { "Omnipay\\Wirecard\\" : "src/" }
+  "name": "dercoder/omnipay-wirecard",
+  "type": "library",
+  "description": "Wirecard gateway for Omnipay payment processing library",
+  "keywords": [
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment",
+    "wirecard",
+    "purchase"
+  ],
+  "homepage": "https://github.com/dercoder/omnipay-wirecard",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tamas Erdelyi",
+      "email": "terdelyi@gmail.com"
     },
-    "require": {
-        "omnipay/common": "~2.0"
-    },
-    "require-dev": {
-        "omnipay/tests": "~2.0"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.x-dev"
-        }
+    {
+      "name": "Alexander Fedra",
+      "email": "alexander.fedra@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Omnipay\\Wirecard\\": "src/"
+    }
+  },
+  "require": {
+    "omnipay/common": "^2.3"
+  },
+  "require-dev": {
+    "omnipay/tests": "~2.0",
+    "satooshi/php-coveralls": "1.0.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
+    }
+  }
 }
