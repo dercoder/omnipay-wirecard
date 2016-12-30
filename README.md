@@ -51,17 +51,17 @@ Secondly prepare the required parameters:
 
 ```php
 $parameters = [
-    'paymentType' => 'CCARD', // optional
+    'paymentType' => 'CCARD', // optional, default SELECT
     'shopId' => '1234', // optional
     'transactionId' => 'TX54434',
     'currency' => 'EUR',
     'description' => 'Awesome Product',
     'language' => 'EN',
     'returnUrl' => 'http://your-website.com/response?type=success',
-    'cancelUrl' => http://your-website.com/response?type=cancel,
-    'notifyUrl' => http://your-website.com/response?type=notify,
-    'serviceUrl' => http://your-website.com/response?type=service,
-    'imageUrl' => http://your-website.com/logo.png, // optional
+    'cancelUrl' => 'http://your-website.com/response?type=cancel',
+    'notifyUrl' => 'http://your-website.com/response?type=notify',
+    'serviceUrl' => 'http://your-website.com/response?type=service',
+    'imageUrl' => 'http://your-website.com/logo.png', // optional
     'amount' => '100.00'
 ];
 ```
