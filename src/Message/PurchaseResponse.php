@@ -4,38 +4,44 @@ namespace Omnipay\Wirecard\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
-use Omnipay\Common\Message\RequestInterface;
 
-class CheckoutPurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    protected $redirectUrl;
-
-    public function __construct(RequestInterface $request, $data, $redirectUrl)
-    {
-        parent::__construct($request, $data);
-        $this->redirectUrl = $redirectUrl;
-    }
-
+    /**
+     * @return bool
+     */
     public function isSuccessful()
     {
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isRedirect()
     {
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getRedirectUrl()
     {
         return $this->getRequest()->getEndpoint();
     }
 
+    /**
+     * @return string
+     */
     public function getRedirectMethod()
     {
         return 'POST';
     }
 
+    /**
+     * @return array
+     */
     public function getRedirectData()
     {
         return $this->data;

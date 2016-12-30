@@ -1,17 +1,34 @@
 <?php
 
-namespace Omnipay\Wirecard\Message;
+namespace Omnipay\Wirecard;
 
-abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
+use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Wirecard\Message\PurchaseRequest;
+use Omnipay\Wirecard\Message\CompletePurchaseRequest;
+
+class Gateway extends AbstractGateway
 {
     /**
-     * @var string
+     * @return string
      */
-    protected $liveEndpoint = 'https://checkout.wirecard.com/page/init.php';
+    public function getName()
+    {
+        return 'Wirecard';
+    }
+
     /**
-     * @var string
+     * @return array
      */
-    protected $testEndpoint = 'https://checkout.wirecard.com/page/init.php';
+    public function getDefaultParameters()
+    {
+        return array(
+            'customerId' => '',
+            'shopId'     => '',
+            'secret'     => '',
+            'testMode'   => false
+        );
+    }
 
     /**
      * Get Wirecard customer ID.
@@ -80,10 +97,22 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     }
 
     /**
-     * @return string
+     * @param array $parameters
+     *
+     * @return AbstractRequest|PurchaseRequest
      */
-    public function getEndpoint()
+    public function purchase(array $parameters = array())
     {
-        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        return $this->createRequest('\Omnipay\Wirecard\Message\PurchaseRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return AbstractRequest|CompletePurchaseRequest
+     */
+    public function completePurchase(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Wirecard\Message\CompletePurchaseRequest', $parameters);
     }
 }

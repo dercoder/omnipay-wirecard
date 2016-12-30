@@ -1,21 +1,30 @@
-# omnipay-wirecard
-Wirecard gateway for [Omnipay](https://github.com/thephpleague/omnipay) payment processing library.
+# Omnipay: Wirecard
+
+**Wirecard driver for the Omnipay PHP payment processing library**
+
+[![Build Status](https://travis-ci.org/dercoder/omnipay-wirecard.svg?branch=master)](https://travis-ci.org/dercoder/omnipay-wirecard)
+[![Coverage Status](https://coveralls.io/repos/dercoder/omnipay-wirecard/badge.svg?branch=master&service=github)](https://coveralls.io/github/dercoder/omnipay-wirecard?branch=master)
+
+[![Latest Stable Version](https://poser.pugx.org/dercoder/omnipay-wirecard/v/stable.png)](https://packagist.org/packages/dercoder/omnipay-wirecard)
+[![Total Downloads](https://poser.pugx.org/dercoder/omnipay-wirecard/downloads.png)](https://packagist.org/packages/dercoder/omnipay-wirecard)
+[![Latest Unstable Version](https://poser.pugx.org/dercoder/omnipay-wirecard/v/unstable.png)](https://packagist.org/packages/dercoder/omnipay-wirecard)
+[![License](https://poser.pugx.org/dercoder/omnipay-wirecard/license.png)](https://packagist.org/packages/dercoder/omnipay-wirecard)
+
+[Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
+processing library for PHP 5.3+. This package implements [Wirecard](https://www.wirecard.at) support for Omnipay.
 
 > This library **only supports** Wirecard Checkout Page payment yet. You can [read more about](https://www.wirecard.at/en/solutions/products/checkout-page/) the Checkout Page solution here.
 
-## Install
+## Installation
 
-Gateway is installed via Composer:
-
-```bash
-composer require terdelyi/omnipay-wirecard
-```
-
-or add it to your composer.json file:
+Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it
+to your `composer.json` file:
 
 ```json
-"require": {
-    "terdelyi/omnipay-wirecard": "dev-master"
+{
+    "require": {
+        "dercoder/omnipay-wirecard": "~1.0"
+    }
 }
 ```
 
@@ -25,7 +34,7 @@ It will also install the Omnipay package if it's not available in the autoload.
 
 The following gateways are provided by this package:
 
-* Wirecard_Checkout (Wirecard Checkout Page)
+* Wirecard (Wirecard Checkout Page)
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
@@ -33,7 +42,7 @@ repository.
 Firstly create the gateway:
 
 ```php
-$gateway = Omnipay\Omnipay::create('Wirecard_Checkout');
+$gateway = Omnipay\Omnipay::create('Wirecard');
 $gateway->setCustomerId('D200001'); // this is a valid demo customer id
 $gateway->setSecret('B8AKTPWBRMNBV455FG6M2DANE99WU2'); // this is also valid for developing
 ```
@@ -42,16 +51,18 @@ Secondly prepare the required parameters:
 
 ```php
 $parameters = [
-    'paymentType' => 'CCARD',
+    'paymentType' => 'CCARD', // optional
     'shopId' => '1234', // optional
+    'transactionId' => 'TX54434',
     'currency' => 'EUR',
     'description' => 'Awesome Product',
     'language' => 'EN',
-    'successUrl' => 'http://your-website.com/response?type=success',
-    'failureUrl' => 'http://your-website.com/response?type=failure',
+    'returnUrl' => 'http://your-website.com/response?type=success',
     'cancelUrl' => http://your-website.com/response?type=cancel,
+    'notifyUrl' => http://your-website.com/response?type=notify,
     'serviceUrl' => http://your-website.com/response?type=service,
-    'amount' => '100.00' // must be contains decimals
+    'imageUrl' => http://your-website.com/logo.png, // optional
+    'amount' => '100.00'
 ];
 ```
 
@@ -73,14 +84,14 @@ Lastly handle the response:
 if ($response->isRedirect()) {
     $response->redirect(); // redirect the browser to the Wirecard Checkout Page
 } else {
-    echo 'Error: '.$response->getMessage();
+    echo 'Error: ' . $response->getMessage();
 }
 ```
 
 If you would like to handle return urls from the Checkout page use this on your response page:
 
 ```php
-$gateway = Omnipay\Omnipay::create('Wirecard_Checkout');
+$gateway = Omnipay\Omnipay::create('Wirecard');
 $gateway->setCustomerId('D200001');
 $gateway->setSecret('B8AKTPWBRMNBV455FG6M2DANE99WU2');
 $request = $gateway->completePurchase();
@@ -129,8 +140,3 @@ Payment type is highly depended on your contract with Wirecard, but these are th
 | SKRILLWALLET | Skrill Digital Wallet |
 | SOFORTUEBERWEISUNG | sofort.com |
 | TRUSTLY | Trustly |
-
-## To-do
-- Handling custom parameters (like customerStatement, duplicateRequestCheck, displayText, imageUrl, etc.)
-- Unit tests
-- Checkout Seamless integration (https://www.wirecard.at/en/solutions/products/checkout-seamless/)
