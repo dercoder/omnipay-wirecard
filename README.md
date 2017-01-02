@@ -44,6 +44,7 @@ Firstly create the gateway:
 ```php
 $gateway = Omnipay\Omnipay::create('Wirecard');
 $gateway->setCustomerId('D200001'); // this is a valid demo customer id
+$gateway->setShopId('3D'); // this is optional
 $gateway->setSecret('B8AKTPWBRMNBV455FG6M2DANE99WU2'); // this is also valid for developing
 ```
 
@@ -52,7 +53,6 @@ Secondly prepare the required parameters:
 ```php
 $parameters = [
     'paymentType' => 'CCARD', // optional, default SELECT
-    'shopId' => '1234', // optional
     'transactionId' => 'TX54434',
     'currency' => 'EUR',
     'description' => 'Awesome Product',
@@ -99,7 +99,7 @@ $response = $request->send();
 
 if ($response->isSuccessful()) {
     echo 'Succesful payment!';
-} else if ($response->isCanceled()) {
+} else if ($response->isCancelled()) {
     echo 'Payment has been cancelled.';
 } else if ($response->isPending()) {
     echo 'Your payment is in pending status.';

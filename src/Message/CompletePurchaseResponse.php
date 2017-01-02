@@ -65,6 +65,14 @@ class CompletePurchaseResponse extends AbstractResponse
     /**
      * @return string
      */
+    public function getCode()
+    {
+        return $this->getPaymentState();
+    }
+
+    /**
+     * @return string
+     */
     public function getMessage()
     {
         switch ($this->getPaymentState()) {

@@ -30,7 +30,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertFalse($response->isCancelled());
-        $this->assertNull($response->getCode());
+        $this->assertSame('SUCCESS', $response->getCode());
         $this->assertSame('121588', $response->getTransactionReference());
         $this->assertSame('SUCCESS', $response->getPaymentState());
         $this->assertSame('GIROPAY', $response->getPaymentType());
@@ -50,7 +50,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertFalse($response->isCancelled());
-        $this->assertNull($response->getCode());
+        $this->assertSame('FAILURE', $response->getCode());
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('FAILURE', $response->getPaymentState());
         $this->assertNull($response->getPaymentType());
@@ -68,7 +68,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertTrue($response->isCancelled());
-        $this->assertNull($response->getCode());
+        $this->assertSame('CANCEL', $response->getCode());
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('CANCEL', $response->getPaymentState());
         $this->assertNull($response->getPaymentType());
@@ -100,7 +100,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertTrue($response->isPending());
         $this->assertFalse($response->isCancelled());
-        $this->assertNull($response->getCode());
+        $this->assertSame('PENDING', $response->getCode());
         $this->assertSame('121588', $response->getTransactionReference());
         $this->assertSame('PENDING', $response->getPaymentState());
         $this->assertSame('GIROPAY', $response->getPaymentType());
@@ -118,7 +118,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertFalse($response->isCancelled());
-        $this->assertNull($response->getCode());
+        $this->assertSame('UNKNOWN', $response->getCode());
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('UNKNOWN', $response->getPaymentState());
         $this->assertNull($response->getPaymentType());
