@@ -7,11 +7,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /**
      * @var string
      */
-    protected $liveEndpoint = 'https://checkout.wirecard.com/page/init.php';
-    /**
-     * @var string
-     */
-    protected $testEndpoint = 'https://checkout.wirecard.com/page/init.php';
+    protected $endpoint = 'https://checkout.wirecard.com/page/init.php';
 
     /**
      * Get Wirecard customer ID.
@@ -84,6 +80,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      */
     public function getEndpoint()
     {
-        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        return $this->endpoint;
     }
 }
