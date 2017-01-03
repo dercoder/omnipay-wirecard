@@ -4,6 +4,10 @@ namespace Omnipay\Wirecard\Message;
 
 use Omnipay\Wirecard\Support\Helper;
 
+/**
+ * Class PurchaseRequest
+ * @package Omnipay\Wirecard\Message
+ */
 class PurchaseRequest extends AbstractRequest
 {
     /**

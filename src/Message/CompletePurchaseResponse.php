@@ -4,6 +4,10 @@ namespace Omnipay\Wirecard\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 
+/**
+ * Class CompletePurchaseResponse
+ * @package Omnipay\Wirecard\Message
+ */
 class CompletePurchaseResponse extends AbstractResponse
 {
     /**

@@ -7,6 +7,10 @@ use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Wirecard\Message\PurchaseRequest;
 use Omnipay\Wirecard\Message\CompletePurchaseRequest;
 
+/**
+ * Class Gateway
+ * @package Omnipay\Wirecard
+ */
 class Gateway extends AbstractGateway
 {
     /**

@@ -5,11 +5,6 @@ namespace Omnipay\Wirecard\Message;
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     /**
-     * @var string
-     */
-    protected $endpoint = 'https://checkout.wirecard.com/page/init.php';
-
-    /**
      * Get Wirecard customer ID.
      *
      * @return string customerId
@@ -73,13 +68,5 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setSecret($value)
     {
         return $this->setParameter('secret', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getEndpoint()
-    {
-        return $this->endpoint;
     }
 }

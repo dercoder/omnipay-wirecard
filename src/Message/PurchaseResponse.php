@@ -5,6 +5,10 @@ namespace Omnipay\Wirecard\Message;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
+/**
+ * Class PurchaseResponse
+ * @package Omnipay\Wirecard\Message
+ */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     /**
@@ -28,7 +32,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      */
     public function getRedirectUrl()
     {
-        return $this->getRequest()->getEndpoint();
+        return 'https://checkout.wirecard.com/page/init.php';
     }
 
     /**

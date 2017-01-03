@@ -2,6 +2,10 @@
 
 namespace Omnipay\Wirecard\Support;
 
+/**
+ * Class Helper
+ * @package Omnipay\Wirecard\Support
+ */
 class Helper
 {
     /**
