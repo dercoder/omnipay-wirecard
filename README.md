@@ -59,6 +59,7 @@ $parameters = [
     'language' => 'EN',
     'returnUrl' => 'http://your-website.com/response?type=success',
     'cancelUrl' => 'http://your-website.com/response?type=cancel',
+    'pendingUrl' => 'http://your-website.com/response?type=pending',
     'notifyUrl' => 'http://your-website.com/response?type=notify',
     'serviceUrl' => 'http://your-website.com/response?type=service',
     'imageUrl' => 'http://your-website.com/logo.png', // optional
