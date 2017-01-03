@@ -47,6 +47,24 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * @return string pendingUrl
+     */
+    public function getPendingUrl()
+    {
+        return $this->getParameter('pendingUrl');
+    }
+
+    /**
+     * @param string $value pendingUrl
+     *
+     * @return $this
+     */
+    public function setPendingUrl($value)
+    {
+        return $this->setParameter('pendingUrl', $value);
+    }
+
+    /**
      * @return string serviceUrl
      */
     public function getServiceUrl()
@@ -97,6 +115,7 @@ class PurchaseRequest extends AbstractRequest
             'returnUrl',
             'cancelUrl',
             'notifyUrl',
+            'pendingUrl',
             'serviceUrl'
         );
 
@@ -112,6 +131,7 @@ class PurchaseRequest extends AbstractRequest
             'failureUrl'       => $this->getCancelUrl(),
             'cancelUrl'        => $this->getCancelUrl(),
             'confirmUrl'       => $this->getNotifyUrl(),
+            'pendingUrl'       => $this->getPendingUrl(),
             'serviceUrl'       => $this->getServiceUrl(),
             'imageUrl'         => $this->getImageUrl(),
             'language'         => $this->getLanguage()

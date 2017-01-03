@@ -27,6 +27,7 @@ class PurchaseRequestTest extends TestCase
             'returnUrl'     => 'https://www.example.com/return.html',
             'cancelUrl'     => 'https://www.example.com/cancel.html',
             'notifyUrl'     => 'https://www.example.com/notify.html',
+            'pendingUrl'    => 'https://www.example.com/pending.html',
             'serviceUrl'    => 'https://www.example.com/service.html',
             'imageUrl'      => 'https://www.example.com/image.png'
         ));
@@ -47,6 +48,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('https://www.example.com/cancel.html', $data['cancelUrl']);
         $this->assertSame('https://www.example.com/cancel.html', $data['failureUrl']);
         $this->assertSame('https://www.example.com/notify.html', $data['confirmUrl']);
+        $this->assertSame('https://www.example.com/pending.html', $data['pendingUrl']);
         $this->assertSame('https://www.example.com/service.html', $data['serviceUrl']);
         $this->assertSame('https://www.example.com/image.png', $data['imageUrl']);
     }

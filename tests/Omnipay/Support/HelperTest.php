@@ -20,12 +20,13 @@ class HelperTest extends TestCase
             'failureUrl'       => 'https://www.example.com/failure.html',
             'cancelUrl'        => 'https://www.example.com/cancel.html',
             'confirmUrl'       => 'https://www.example.com/confirm.html',
+            'pendingUrl'       => 'https://www.example.com/pending.html',
             'serviceUrl'       => 'https://www.example.com/service.html',
             'imageUrl'         => 'https://www.example.com/image.png',
             'language'         => 'EN'
         ));
 
-        $this->assertSame('customerId,shopId,paymentType,currency,orderDescription,orderReference,amount,successUrl,failureUrl,cancelUrl,confirmUrl,serviceUrl,imageUrl,language,requestFingerprintOrder,secret', $fingerprintOrder);
+        $this->assertSame('customerId,shopId,paymentType,currency,orderDescription,orderReference,amount,successUrl,failureUrl,cancelUrl,confirmUrl,pendingUrl,serviceUrl,imageUrl,language,requestFingerprintOrder,secret', $fingerprintOrder);
     }
 
     public function testGetRequestFingerprint()
@@ -42,12 +43,13 @@ class HelperTest extends TestCase
             'failureUrl'       => 'https://www.example.com/failure.html',
             'cancelUrl'        => 'https://www.example.com/cancel.html',
             'confirmUrl'       => 'https://www.example.com/confirm.html',
+            'pendingUrl'       => 'https://www.example.com/pending.html',
             'serviceUrl'       => 'https://www.example.com/service.html',
             'imageUrl'         => 'https://www.example.com/image.png',
             'language'         => 'EN'
         ), 'B8AKTPWBRMNBV455FG6M2DANE99WU2');
 
-        $this->assertSame('d12281498104ad248333f600391c94b2', $fingerprint);
+        $this->assertSame('086f80f6baaf839cec221ffc0eefd985', $fingerprint);
     }
 
     public function testAreReturnParametersValid()
