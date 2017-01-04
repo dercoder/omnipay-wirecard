@@ -42,6 +42,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('5.00', $data['amount']);
         $this->assertSame('EUR', $data['currency']);
         $this->assertSame('Test', $data['orderDescription']);
+        $this->assertSame('TX12345', $data['omnipayTransactionId']);
         $this->assertSame('TX12345', $data['orderReference']);
         $this->assertSame('EN', $data['language']);
         $this->assertSame('https://www.example.com/return.html', $data['successUrl']);

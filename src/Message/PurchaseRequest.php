@@ -112,6 +112,7 @@ class PurchaseRequest extends AbstractRequest
         $this->validate(
             'customerId',
             'secret',
+            'transactionId',
             'currency',
             'amount',
             'description',
@@ -124,22 +125,27 @@ class PurchaseRequest extends AbstractRequest
         );
 
         $data = array(
-            'customerId'       => $this->getCustomerId(),
-            'shopId'           => $this->getShopId(),
-            'paymentType'      => $this->getPaymentType(),
-            'currency'         => $this->getCurrency(),
-            'orderDescription' => $this->getDescription(),
-            'orderReference'   => $this->getTransactionId(),
-            'amount'           => $this->getAmount(),
-            'successUrl'       => $this->getReturnUrl(),
-            'failureUrl'       => $this->getCancelUrl(),
-            'cancelUrl'        => $this->getCancelUrl(),
-            'confirmUrl'       => $this->getNotifyUrl(),
-            'pendingUrl'       => $this->getPendingUrl(),
-            'serviceUrl'       => $this->getServiceUrl(),
-            'imageUrl'         => $this->getImageUrl(),
-            'language'         => $this->getLanguage()
+            'omnipayTransactionId' => $this->getTransactionId(),
+            'customerId'           => $this->getCustomerId(),
+            'shopId'               => $this->getShopId(),
+            'paymentType'          => $this->getPaymentType(),
+            'currency'             => $this->getCurrency(),
+            'orderDescription'     => $this->getDescription(),
+            'orderReference'       => $this->getTransactionId(),
+            'amount'               => $this->getAmount(),
+            'successUrl'           => $this->getReturnUrl(),
+            'failureUrl'           => $this->getCancelUrl(),
+            'cancelUrl'            => $this->getCancelUrl(),
+            'confirmUrl'           => $this->getNotifyUrl(),
+            'pendingUrl'           => $this->getPendingUrl(),
+            'serviceUrl'           => $this->getServiceUrl(),
+            'language'             => $this->getLanguage()
         );
+
+        /* Optional parameters should be added like this */
+        if ($imageUrl = $this->getImageUrl()) {
+            $data['imageUrl'] = $imageUrl;
+        }
 
         $data['requestFingerprintOrder'] = Helper::getRequestFingerprintOrder($data);
         $data['requestFingerprint'] = Helper::getRequestFingerprint($data, $this->getSecret());

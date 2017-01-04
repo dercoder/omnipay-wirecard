@@ -10,6 +10,7 @@ class CompletePurchaseResponseTest extends TestCase
     {
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = new CompletePurchaseResponse($request, array(
+            'omnipayTransactionId'     => 'TX12345',
             'amount'                   => '5.00',
             'currency'                 => 'EUR',
             'paymentType'              => 'GIROPAY',
@@ -31,6 +32,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($response->isPending());
         $this->assertFalse($response->isCancelled());
         $this->assertSame('SUCCESS', $response->getCode());
+        $this->assertSame('TX12345', $response->getTransactionId());
         $this->assertSame('121588', $response->getTransactionReference());
         $this->assertSame('SUCCESS', $response->getPaymentState());
         $this->assertSame('GIROPAY', $response->getPaymentType());
@@ -42,15 +44,17 @@ class CompletePurchaseResponseTest extends TestCase
     {
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = new CompletePurchaseResponse($request, array(
-            'consumerMessage' => 'The transaction has not been authorised.',
-            'message'         => 'The transaction has not been authorised.',
-            'paymentState'    => 'FAILURE'
+            'omnipayTransactionId' => 'TX12345',
+            'consumerMessage'      => 'The transaction has not been authorised.',
+            'message'              => 'The transaction has not been authorised.',
+            'paymentState'         => 'FAILURE'
         ));
 
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertFalse($response->isCancelled());
         $this->assertSame('FAILURE', $response->getCode());
+        $this->assertSame('TX12345', $response->getTransactionId());
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('FAILURE', $response->getPaymentState());
         $this->assertNull($response->getPaymentType());
@@ -62,13 +66,15 @@ class CompletePurchaseResponseTest extends TestCase
     {
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = new CompletePurchaseResponse($request, array(
-            'paymentState' => 'CANCEL'
+            'omnipayTransactionId' => 'TX12345',
+            'paymentState'         => 'CANCEL'
         ));
 
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertTrue($response->isCancelled());
         $this->assertSame('CANCEL', $response->getCode());
+        $this->assertSame('TX12345', $response->getTransactionId());
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('CANCEL', $response->getPaymentState());
         $this->assertNull($response->getPaymentType());
@@ -80,6 +86,7 @@ class CompletePurchaseResponseTest extends TestCase
     {
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = new CompletePurchaseResponse($request, array(
+            'omnipayTransactionId'     => 'TX12345',
             'amount'                   => '5.00',
             'currency'                 => 'EUR',
             'paymentType'              => 'GIROPAY',
@@ -101,6 +108,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertTrue($response->isPending());
         $this->assertFalse($response->isCancelled());
         $this->assertSame('PENDING', $response->getCode());
+        $this->assertSame('TX12345', $response->getTransactionId());
         $this->assertSame('121588', $response->getTransactionReference());
         $this->assertSame('PENDING', $response->getPaymentState());
         $this->assertSame('GIROPAY', $response->getPaymentType());
@@ -112,13 +120,15 @@ class CompletePurchaseResponseTest extends TestCase
     {
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = new CompletePurchaseResponse($request, array(
-            'paymentState' => 'UNKNOWN'
+            'omnipayTransactionId' => 'TX12345',
+            'paymentState'         => 'UNKNOWN'
         ));
 
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertFalse($response->isCancelled());
         $this->assertSame('UNKNOWN', $response->getCode());
+        $this->assertSame('TX12345', $response->getTransactionId());
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('UNKNOWN', $response->getPaymentState());
         $this->assertNull($response->getPaymentType());

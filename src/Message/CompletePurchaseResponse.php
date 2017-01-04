@@ -37,6 +37,14 @@ class CompletePurchaseResponse extends AbstractResponse
     /**
      * @return string
      */
+    public function getTransactionId()
+    {
+        return isset($this->data['omnipayTransactionId']) ? $this->data['omnipayTransactionId'] : null;
+    }
+
+    /**
+     * @return string
+     */
     public function getTransactionReference()
     {
         return isset($this->data['orderNumber']) ? $this->data['orderNumber'] : null;
