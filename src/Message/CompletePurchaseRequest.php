@@ -11,6 +11,10 @@ use Omnipay\Common\Exception\InvalidRequestException;
  */
 class CompletePurchaseRequest extends AbstractRequest
 {
+    /**
+     * @return array
+     * @throws InvalidRequestException
+     */
     public function getData()
     {
         $data = $this->httpRequest->request->all();
@@ -22,6 +26,11 @@ class CompletePurchaseRequest extends AbstractRequest
         return $data;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return CompletePurchaseResponse
+     */
     public function sendData($data)
     {
         return new CompletePurchaseResponse($this, $data);
