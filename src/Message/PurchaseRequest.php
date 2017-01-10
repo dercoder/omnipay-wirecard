@@ -11,6 +11,20 @@ use Omnipay\Wirecard\Support\Helper;
 class PurchaseRequest extends AbstractRequest
 {
     /**
+     * https://guides.wirecard.at/request_parameters#language
+     * @var array
+     */
+    public $languages = array(
+        'AR', 'BS', 'BG', 'ZH', 'HR',
+        'CS', 'DA', 'NL', 'EN', 'ET',
+        'FI', 'FR', 'DE', 'EL', 'HE',
+        'HI', 'HU', 'IT', 'JA', 'KO',
+        'LV', 'LT', 'MK', 'NO', 'PL',
+        'PT', 'RO', 'RU', 'SR', 'SK',
+        'SL', 'ES', 'SV', 'TR', 'UK'
+    );
+
+    /**
      * @return string paymentType
      */
     public function getPaymentType()
@@ -37,7 +51,14 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getLanguage()
     {
-        return $this->getParameter('language');
+        if ($language = $this->getParameter('language')) {
+            $language = strtoupper($language);
+            if (in_array($language, $this->languages)) {
+                return $language;
+            }
+        }
+
+        return 'EN';
     }
 
     /**
@@ -116,7 +137,6 @@ class PurchaseRequest extends AbstractRequest
             'currency',
             'amount',
             'description',
-            'language',
             'returnUrl',
             'cancelUrl',
             'notifyUrl',
