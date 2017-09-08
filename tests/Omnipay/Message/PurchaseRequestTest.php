@@ -16,20 +16,23 @@ class PurchaseRequestTest extends TestCase
         parent::setUp();
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(array(
-            'customerId'    => 'D200001',
-            'shopId'        => '3D',
-            'secret'        => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
-            'amount'        => 5.00,
-            'currency'      => 'EUR',
-            'transactionId' => 'TX12345',
-            'language'      => 'XX',
-            'description'   => 'Test',
-            'returnUrl'     => 'https://www.example.com/return.html',
-            'cancelUrl'     => 'https://www.example.com/cancel.html',
-            'notifyUrl'     => 'https://www.example.com/notify.html',
-            'pendingUrl'    => 'https://www.example.com/pending.html',
-            'serviceUrl'    => 'https://www.example.com/service.html',
-            'imageUrl'      => 'https://www.example.com/image.png'
+            'customerId'      => 'D200001',
+            'shopId'          => '3D',
+            'secret'          => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
+            'amount'          => 5.00,
+            'currency'        => 'EUR',
+            'transactionId'   => 'TX12345',
+            'language'        => 'XX',
+            'description'     => 'Test',
+            'returnUrl'       => 'https://www.example.com/return.html',
+            'cancelUrl'       => 'https://www.example.com/cancel.html',
+            'notifyUrl'       => 'https://www.example.com/notify.html',
+            'pendingUrl'      => 'https://www.example.com/pending.html',
+            'serviceUrl'      => 'https://www.example.com/service.html',
+            'imageUrl'        => 'https://www.example.com/image.png',
+            'displayText'     => 'Hello World!',
+            'backgroundColor' => 'FF00FF',
+            'autoDeposit'     => true
         ));
     }
 
@@ -52,9 +55,14 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('https://www.example.com/pending.html', $data['pendingUrl']);
         $this->assertSame('https://www.example.com/service.html', $data['serviceUrl']);
         $this->assertSame('https://www.example.com/image.png', $data['imageUrl']);
+        $this->assertSame('Hello World!', $data['displayText']);
+        $this->assertSame('ff00ff', $data['backgroundColor']);
+        $this->assertSame('yes', $data['autoDeposit']);
         $this->request->setLanguage('DE');
+        $this->request->setAutoDeposit(false);
         $data = $this->request->getData();
         $this->assertSame('DE', $data['language']);
+        $this->assertSame('no', $data['autoDeposit']);
     }
 
     public function testSendData()

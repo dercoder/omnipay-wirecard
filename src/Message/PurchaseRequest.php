@@ -11,20 +11,6 @@ use Omnipay\Wirecard\Support\Helper;
 class PurchaseRequest extends AbstractRequest
 {
     /**
-     * https://guides.wirecard.at/request_parameters#language
-     * @var array
-     */
-    public $languages = array(
-        'AR', 'BS', 'BG', 'ZH', 'HR',
-        'CS', 'DA', 'NL', 'EN', 'ET',
-        'FI', 'FR', 'DE', 'EL', 'HE',
-        'HI', 'HU', 'IT', 'JA', 'KO',
-        'LV', 'LT', 'MK', 'NO', 'PL',
-        'PT', 'RO', 'RU', 'SR', 'SK',
-        'SL', 'ES', 'SV', 'TR', 'UK'
-    );
-
-    /**
      * @return string paymentType
      */
     public function getPaymentType()
@@ -44,31 +30,6 @@ class PurchaseRequest extends AbstractRequest
     public function setPaymentType($value)
     {
         return $this->setParameter('paymentType', $value);
-    }
-
-    /**
-     * @return string language
-     */
-    public function getLanguage()
-    {
-        if ($language = $this->getParameter('language')) {
-            $language = strtoupper($language);
-            if (in_array($language, $this->languages)) {
-                return $language;
-            }
-        }
-
-        return 'EN';
-    }
-
-    /**
-     * @param string $value $language
-     *
-     * @return $this
-     */
-    public function setLanguage($value)
-    {
-        return $this->setParameter('language', $value);
     }
 
     /**
@@ -126,6 +87,60 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * @return string displayText
+     */
+    public function getDisplayText()
+    {
+        return $this->getParameter('displayText');
+    }
+
+    /**
+     * @param string $value displayText
+     *
+     * @return $this
+     */
+    public function setDisplayText($value)
+    {
+        return $this->setParameter('displayText', $value);
+    }
+
+    /**
+     * @return string backgroundColor
+     */
+    public function getBackgroundColor()
+    {
+        return $this->getParameter('backgroundColor');
+    }
+
+    /**
+     * @param string $value backgroundColor
+     *
+     * @return $this
+     */
+    public function setBackgroundColor($value)
+    {
+        return $this->setParameter('backgroundColor', strtolower($value));
+    }
+
+    /**
+     * @return bool autoDeposit
+     */
+    public function getAutoDeposit()
+    {
+        return $this->getParameter('autoDeposit');
+    }
+
+    /**
+     * @param bool $value autoDeposit
+     *
+     * @return $this
+     */
+    public function setAutoDeposit($value)
+    {
+        return $this->setParameter('autoDeposit', (bool) $value);
+    }
+
+    /**
      * @return array
      */
     public function getData()
@@ -167,8 +182,25 @@ class PurchaseRequest extends AbstractRequest
             $data['imageUrl'] = $imageUrl;
         }
 
+        if ($displayText = $this->getDisplayText()) {
+            $data['displayText'] = $displayText;
+        }
+
+        if ($backgroundColor = $this->getBackgroundColor()) {
+            $data['backgroundColor'] = $backgroundColor;
+        }
+
+        switch ($this->getAutoDeposit()) {
+            case true:
+                $data['autoDeposit'] = 'yes';
+                break;
+            case false:
+                $data['autoDeposit'] = 'no';
+                break;
+        }
+
         $data['requestFingerprintOrder'] = Helper::getRequestFingerprintOrder($data);
-        $data['requestFingerprint'] = Helper::getRequestFingerprint($data, $this->getSecret());
+        $data['requestFingerprint'] = Helper::getPurchaseRequestFingerprint($data, $this->getSecret());
 
         return $data;
     }

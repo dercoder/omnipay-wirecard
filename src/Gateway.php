@@ -4,6 +4,7 @@ namespace Omnipay\Wirecard;
 
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Wirecard\Message\PayoutRequest;
 use Omnipay\Wirecard\Message\PurchaseRequest;
 use Omnipay\Wirecard\Message\CompletePurchaseRequest;
 
@@ -101,6 +102,28 @@ class Gateway extends AbstractGateway
     }
 
     /**
+     * Get Wirecard toolkit password.
+     *
+     * @return string toolkitPassword
+     */
+    public function getToolkitPassword()
+    {
+        return $this->getParameter('toolkitPassword');
+    }
+
+    /**
+     * Set Wirecard toolkit password.
+     *
+     * @param string $value toolkitPassword
+     *
+     * @return $this
+     */
+    public function setToolkitPassword($value)
+    {
+        return $this->setParameter('toolkitPassword', $value);
+    }
+
+    /**
      * @param array $parameters
      *
      * @return AbstractRequest|PurchaseRequest
@@ -118,5 +141,15 @@ class Gateway extends AbstractGateway
     public function completePurchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Wirecard\Message\CompletePurchaseRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return AbstractRequest|PayoutRequest
+     */
+    public function payout(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Wirecard\Message\PayoutRequest', $parameters);
     }
 }

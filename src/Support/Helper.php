@@ -24,19 +24,33 @@ class Helper
     }
 
     /**
-     * Returns the value for the request parameter 'requestFingerprint'.
+     * Returns the value for the request parameter 'requestFingerprint' for purchase.
      *
      * @param  array  $parameters
      * @param  string $secretKey
      *
      * @return string
      */
-    public static function getRequestFingerprint($parameters, $secretKey)
+    public static function getPurchaseRequestFingerprint($parameters, $secretKey)
     {
         $fingerprint = implode('', $parameters);
         $fingerprint .= $secretKey;
 
         return md5($fingerprint);
+    }
+
+    /**
+     * Returns the value for the request parameter 'requestFingerprint' for payout.
+     *
+     * @param  array  $parameters
+     * @param  string $secretKey
+     *
+     * @return string
+     */
+    public static function getPayoutRequestFingerprint($parameters, $secretKey)
+    {
+        $fingerprint = implode('', $parameters);
+        return hash_hmac('sha512', $fingerprint, $secretKey);
     }
 
     /**

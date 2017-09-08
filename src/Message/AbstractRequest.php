@@ -9,6 +9,20 @@ namespace Omnipay\Wirecard\Message;
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     /**
+     * https://guides.wirecard.at/request_parameters#language
+     * @var array
+     */
+    public $languages = array(
+        'AR', 'BS', 'BG', 'ZH', 'HR',
+        'CS', 'DA', 'NL', 'EN', 'ET',
+        'FI', 'FR', 'DE', 'EL', 'HE',
+        'HI', 'HU', 'IT', 'JA', 'KO',
+        'LV', 'LT', 'MK', 'NO', 'PL',
+        'PT', 'RO', 'RU', 'SR', 'SK',
+        'SL', 'ES', 'SV', 'TR', 'UK'
+    );
+
+    /**
      * Get Wirecard customer ID.
      *
      * @return string customerId
@@ -72,5 +86,52 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setSecret($value)
     {
         return $this->setParameter('secret', $value);
+    }
+
+    /**
+     * Get Wirecard toolkit password.
+     *
+     * @return string toolkitPassword
+     */
+    public function getToolkitPassword()
+    {
+        return $this->getParameter('toolkitPassword');
+    }
+
+    /**
+     * Set Wirecard toolkit password.
+     *
+     * @param string $value toolkitPassword
+     *
+     * @return $this
+     */
+    public function setToolkitPassword($value)
+    {
+        return $this->setParameter('toolkitPassword', $value);
+    }
+
+    /**
+     * @return string language
+     */
+    public function getLanguage()
+    {
+        if ($language = $this->getParameter('language')) {
+            $language = strtoupper($language);
+            if (in_array($language, $this->languages)) {
+                return $language;
+            }
+        }
+
+        return 'EN';
+    }
+
+    /**
+     * @param string $value $language
+     *
+     * @return $this
+     */
+    public function setLanguage($value)
+    {
+        return $this->setParameter('language', $value);
     }
 }

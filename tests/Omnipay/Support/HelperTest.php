@@ -11,7 +11,7 @@ class HelperTest extends TestCase
         $fingerprintOrder = Helper::getRequestFingerprintOrder(array(
             'customerId'       => 'D200001',
             'shopId'           => '3D',
-            'paymentType'      => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
+            'paymentType'      => 'CCARD',
             'currency'         => 'EUR',
             'orderDescription' => 'Test',
             'orderReference'   => 'TX1234',
@@ -29,12 +29,12 @@ class HelperTest extends TestCase
         $this->assertSame('customerId,shopId,paymentType,currency,orderDescription,orderReference,amount,successUrl,failureUrl,cancelUrl,confirmUrl,pendingUrl,serviceUrl,imageUrl,language,requestFingerprintOrder,secret', $fingerprintOrder);
     }
 
-    public function testGetRequestFingerprint()
+    public function testGetPurchaseRequestFingerprint()
     {
-        $fingerprint = Helper::getRequestFingerprint(array(
+        $fingerprint = Helper::getPurchaseRequestFingerprint(array(
             'customerId'       => 'D200001',
             'shopId'           => '3D',
-            'paymentType'      => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
+            'paymentType'      => 'CCARD',
             'currency'         => 'EUR',
             'orderDescription' => 'Test',
             'orderReference'   => 'TX1234',
@@ -49,7 +49,24 @@ class HelperTest extends TestCase
             'language'         => 'EN'
         ), 'B8AKTPWBRMNBV455FG6M2DANE99WU2');
 
-        $this->assertSame('086f80f6baaf839cec221ffc0eefd985', $fingerprint);
+        $this->assertSame('46b0e2c94338f49dc396f6e46bfcc8e2', $fingerprint);
+    }
+
+    public function testGetPayoutRequestFingerprint()
+    {
+        $fingerprint = Helper::getPayoutRequestFingerprint(array(
+            'customerId'      => 'D200001',
+            'shopId'          => '3D',
+            'toolkitPassword' => 'jcv45z',
+            'secret'          => 'B8AKTPWBRMNBV455FG6M2DANE99WU2',
+            'command'         => 'refund',
+            'language'        => 'EN',
+            'orderNumber'     => 12345,
+            'amount'          => 32.43,
+            'currency'        => 'EUR'
+        ), 'B8AKTPWBRMNBV455FG6M2DANE99WU2');
+
+        $this->assertSame('bfde5317ebfcd38ffe727bb568b9e8703e5cd418cab631ed9299a844fe9aca8c594da57e2fec0eb233203f0081c46ae4973082a03bfeacdd50d8b1fd7e814889', $fingerprint);
     }
 
     public function testAreReturnParametersValid()
