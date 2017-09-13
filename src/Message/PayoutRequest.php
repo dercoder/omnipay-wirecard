@@ -26,8 +26,7 @@ class PayoutRequest extends AbstractRequest
             'toolkitPassword',
             'transactionReference',
             'currency',
-            'amount',
-            'language'
+            'amount'
         );
 
         $data = array(
