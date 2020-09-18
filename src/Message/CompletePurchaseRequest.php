@@ -7,6 +7,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * Class CompletePurchaseRequest
+ *
  * @package Omnipay\Wirecard\Message
  */
 class CompletePurchaseRequest extends AbstractRequest
@@ -18,6 +19,11 @@ class CompletePurchaseRequest extends AbstractRequest
     public function getData()
     {
         $data = $this->httpRequest->request->all();
+        $paymentState = $this->httpRequest->request->get('paymentState');
+
+        if ($paymentState !== 'SUCCESS') {
+            return $data;
+        }
 
         if (!Helper::areReturnParametersValid($data, $this->getSecret())) {
             throw new InvalidRequestException('The verification of the returned data was not successful.');

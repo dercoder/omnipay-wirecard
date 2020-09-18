@@ -6,6 +6,7 @@ use Omnipay\Common\Message\AbstractResponse;
 
 /**
  * Class CompletePurchaseResponse
+ *
  * @package Omnipay\Wirecard\Message
  */
 class CompletePurchaseResponse extends AbstractResponse
@@ -15,7 +16,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return $this->getPaymentState() == 'SUCCESS' ? true : false;
+        return $this->getPaymentState() === 'SUCCESS';
     }
 
     /**
@@ -23,7 +24,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function isPending()
     {
-        return $this->getPaymentState() == 'PENDING' ? true : false;
+        return $this->getPaymentState() === 'PENDING';
     }
 
     /**
@@ -31,7 +32,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function isCancelled()
     {
-        return $this->getPaymentState() == 'CANCEL' ? true : false;
+        return $this->getPaymentState() === 'CANCEL';
     }
 
     /**
